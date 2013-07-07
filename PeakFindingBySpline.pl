@@ -11,7 +11,6 @@ my $ref = shift || die $!; #每一个基因的阈值
 #$m = "0" unless ($m) ;
 my @in = glob "$indir/*";
 open REF, $ref;
-
 my (%ucgThre,%ucgPval);
 while ( <REF> ) {
 	chomp;
