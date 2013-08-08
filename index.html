@@ -31,33 +31,41 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h1>Repository Purpose</h1>
+        <h1>
+<a name="repository-purpose" class="anchor" href="#repository-purpose"><span class="octicon octicon-link"></span></a>Repository Purpose</h1>
 
 <p>CLIP-seq can globally report all the binding positions of RNA binding proteins, like PTB, FOX, etc. The key is to identify the sites where proteins and RNA are bound with high affinity and strength, a.k.a peak finding. Lots of Chip-seq tools had been utilized to find peak of CLIP-seq as both Chip-seq and CLIP-seq scan protein-nucleic interaction sites [1]. Here represents the bio-informatics Perl script to do the job. It absorbs and incorporates methods at <em>silico</em> CLIP-seq (by Darnell) [2] and modified FDR methods at PTB CLIP-seq (by Xue) [3]. </p>
 
 <p>In the future, I will git_push more home-made codes for CLIP-seq analysis. </p>
 
-<h1>Brief Introduction for pipeline</h1>
+<h1>
+<a name="brief-introduction-for-pipeline" class="anchor" href="#brief-introduction-for-pipeline"><span class="octicon octicon-link"></span></a>Brief Introduction for pipeline</h1>
 
-<h2>Peak Finding</h2>
+<h2>
+<a name="peak-finding" class="anchor" href="#peak-finding"><span class="octicon octicon-link"></span></a>Peak Finding</h2>
 
 <p><img src="https://raw.github.com/Puriney/CLIPseqToolkit/master/figures/cubicsmoothspline-maxium-minimum.png" alt="Cubic Spline Interploration"></p>
 
-<p>Cubic spline interploration is used in Darnell paper to identify the CLIP-seq signal maximum site, which potentially indicates the binding peaks. In the figure, the black dots denote the raw signal value (hight). The blue curve is the derivative curve. When the derivative equals zero, this site indicates max or min site, and furthermore the maximum site can be filtered. </p>
+<p>Cubic spline interploration is used in Darnell paper to identify the CLIP-seq signal maximum site, which potentially indicates the binding peaks. In the figure, the black dots denote the raw signal value (hight) and the blue curve is the fitting curve. The red one with dots is derivative curve. When the derivative equals zero, this site indicates max or min site, and furthermore the maximum site can be filtered. </p>
 
 <p>Cubic spiline interploration for peak finding is implemented by <code>PeakFindingBySpline.pl</code>. </p>
 
-<h2>Threshold before peak finding</h2>
+<h2>
+<a name="threshold-before-peak-finding" class="anchor" href="#threshold-before-peak-finding"><span class="octicon octicon-link"></span></a>Threshold before peak finding</h2>
 
 <p>The principle is same to Darnel method. For each gene, I assign all the reads for given gene to random positions in order to find the maximum value in random scenario, thus real observed/experimental peak whose height is lower than random/dummy peak is expected to be noise peak that should be excluded. </p>
 
 <p>Threshold before peak finding is implemented by <code>threshold_each_gene_multiple_expriments.pl</code>. </p>
 
-<h1>Dependencies</h1>
+<h1>
+<a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies</h1>
 
-<p>In <code>PeakFindingBySpling.pl</code>, Perl package <code>Statistics::R</code> is needed, because the Perl script employes R functions. The funny thing is R script runs for 104.948s, while Perl script runs only for 5.028s when I deal with exactly same test genes. The principle and core idea of the R script ( I may git push it the other day) is same to this Perl script. In addition, I avoid using <code>for</code> or <code>while</code> loop (Explicit Loop in R) which are killer for R codes. Perhaps I should try some bioconductor packaged when dealling with large amounts of genes. It gives a feeling that my R script works like <code>foreach</code> in Perl thus it is not efficienty as in perl <code>foreach</code> loop is highly prohibited in my <code>vim</code>. Neverthless, this Perl script calling R function really works.</p>
+<p>In <code>PeakFindingBySpling.pl</code>, Perl package <code>Statistics::R</code> is needed, because my Perl script employes R functions. </p>
 
-<h1>Refs</h1>
+<p>The funny thing is R script runs for 104.948s, while Perl script runs only for 5.028s when I deal with exactly same test genes. The principle and core idea of the R script ( I may git push it the other day) is same to this Perl script. In addition, I avoid using <code>for</code> or <code>while</code> loop (Explicit Loop in R) which are killer for R codes. Perhaps I should try some bioconductor packaged when dealling with large amounts of genes. It gives a feeling that my R script works like <code>foreach</code> in Perl thus it is not efficienty as in perl <code>foreach</code> loop is highly prohibited in my <code>vim</code>. Neverthless, this Perl script calling R function really works.</p>
+
+<h1>
+<a name="refs" class="anchor" href="#refs"><span class="octicon octicon-link"></span></a>Refs</h1>
 
 <ol>
 <li>Althammer, Sonja, et al. "Pyicos: A versatile toolkit for the analysis of high-throughput sequencing data." Bioinformatics 27.24 (2011): 3333-3340.</li>
